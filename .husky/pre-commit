@@ -1,0 +1,6 @@
+echo '🔍 Running lint checks...'
+
+yarn lint || {
+  echo '❌ Linting failed. Please fix the above errors before committing.';
+  exit 1;
+}

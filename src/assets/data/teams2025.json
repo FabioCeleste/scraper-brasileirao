@@ -1,0 +1,34 @@
+[
+  {
+    "name": "Atlético Mineiro",
+    "shortName": "Atlético-MG",
+    "acronym": "AMG"
+  },
+  { "name": "Bahia", "shortName": "Bahia", "acronym": "BAH" },
+  { "name": "Botafogo", "shortName": "Botafogo", "acronym": "BOT" },
+  { "name": "Ceará", "shortName": "Ceará", "acronym": "CEA" },
+  { "name": "Corinthians", "shortName": "Corinthians", "acronym": "COR" },
+  { "name": "Cruzeiro", "shortName": "Cruzeiro", "acronym": "CRU" },
+  { "name": "Flamengo", "shortName": "Flamengo", "acronym": "FLA" },
+  { "name": "Fluminense", "shortName": "Fluminense", "acronym": "FLU" },
+  { "name": "Fortaleza", "shortName": "Fortaleza", "acronym": "FOR" },
+  { "name": "Grêmio", "shortName": "Grêmio", "acronym": "GRE" },
+  {
+    "name": "Internacional",
+    "shortName": "Internacional",
+    "acronym": "INT"
+  },
+  { "name": "Juventude", "shortName": "Juventude", "acronym": "JUV" },
+  { "name": "Mirassol", "shortName": "Mirassol", "acronym": "MIR" },
+  { "name": "Palmeiras", "shortName": "Palmeiras", "acronym": "PAL" },
+  {
+    "name": "Red Bull Bragantino",
+    "shortName": "RB Bragantino",
+    "acronym": "RBB"
+  },
+  { "name": "Santos", "shortName": "Santos", "acronym": "SAN" },
+  { "name": "São Paulo", "shortName": "São Paulo", "acronym": "SAO" },
+  { "name": "Sport Recife", "shortName": "Sport", "acronym": "SPO" },
+  { "name": "Vasco da Gama", "shortName": "Vasco", "acronym": "VAS" },
+  { "name": "Vitória", "shortName": "Vitória", "acronym": "VIT" }
+]

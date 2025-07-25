@@ -1,0 +1,11 @@
+node_modules
+.env
+
+dist
+
+prisma/dev.db
+prisma/hml.db
+
+/src/generated/prisma
+
+debug-sofascore*.png

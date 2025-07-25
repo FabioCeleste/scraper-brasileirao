@@ -1,0 +1,36 @@
+#!/usr/bin/env sh
+
+ENABLE_PATTERN=true
+PROJECT_NAME="MY-PROJECT"
+
+COMMIT_MSG_FILE=$1
+COMMIT_MSG=$(cat "$1")
+
+# Conventional-commit style (type: description) – at least 3 chars after the colon
+PATTERN="^(feat|fix|docs|style|refactor|perf|test|ci|chore|revert): .{3,}$"
+
+if [ "$ENABLE_PATTERN" = true ]; then
+  if ! echo "$COMMIT_MSG" | grep -Eq "$PATTERN"; then
+      echo "***************************************************************************************"
+      echo "🚫🚫🚫  ERROR: Your commit message doesn’t match the required pattern!  🚫🚫🚫"
+      echo "======================================================================================="
+      echo "💡  Allowed types: feat | fix | docs | style | refactor | perf | test | ci | chore | revert"
+      echo "💡  Description must contain at least 3 characters"
+      echo "💡  Valid examples:"
+      echo "     feat: add login system"
+      echo "     fix: correct email validation bug"
+      echo "     docs: update README"
+      echo "======================================================================================="
+      echo "📝  Your message: '$COMMIT_MSG'"
+      echo "🔗  Learn more about Conventional Commits:"
+      echo "🔗  https://www.conventionalcommits.org/en/v1.0.0/"
+      echo "***************************************************************************************"
+      exit 1
+  else
+      echo "✅  Commit accepted — thanks for keeping the history clean! 🎉"
+  fi
+else
+    echo "=========================================================="
+    echo "|| ⚠️  NOTICE: Commit-message validation is currently disabled ⚠️ ||"
+    echo "=========================================================="
+fi

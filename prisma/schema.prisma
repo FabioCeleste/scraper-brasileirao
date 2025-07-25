@@ -1,0 +1,112 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Team {
+  id        Int    @id @default(autoincrement())
+  name      String
+  shortName String? @map("short_name")
+  acronym     String?
+  
+  players     Player[]
+  homeMatches Match[]     @relation("HomeTeam")
+  awayMatches Match[]     @relation("AwayTeam")
+  goals       Goal[]
+  cards       Card[]
+  statistics  Statistic[]
+  
+  @@map("teams")
+}
+
+model Player {
+  id     Int    @id @default(autoincrement())
+  name   String
+  teamId Int    @map("team_id")
+  
+  team       Team        @relation(fields: [teamId], references: [id])
+  goals      Goal[]
+  cards      Card[]
+  statistics Statistic[]
+  
+  @@map("players")
+}
+
+model Round {
+  id        Int     @id @default(autoincrement())
+  number    Int
+  startDate String  @map("start_date") 
+  tweetId   String?    @map("tweet_id")   
+  
+  matches Match[]
+  
+  @@map("rounds")
+}
+
+model Match {
+  id         Int    @id @default(autoincrement())
+  round      Int
+  roundId    Int    @map("round_id")
+  homeTeamId Int    @map("home_team_id")
+  awayTeamId Int    @map("away_team_id")
+  homeScore  Int?
+  awayScore  Int?
+  date       String 
+  time       String 
+  status     String // 'scheduled', 'finished', 'postponed'
+  tweetId    String?   @map("tweet_id") 
+  
+  roundRef Round @relation(fields: [roundId], references: [id])
+  homeTeam Team  @relation("HomeTeam", fields: [homeTeamId], references: [id])
+  awayTeam Team  @relation("AwayTeam", fields: [awayTeamId], references: [id])
+  goals    Goal[]
+  cards    Card[]
+  
+  @@map("matches")
+}
+
+model Goal {
+  id       Int @id @default(autoincrement())
+  matchId  Int @map("match_id")
+  playerId Int @map("player_id")
+  teamId   Int @map("team_id")
+  minute   Int
+  
+  match  Match  @relation(fields: [matchId], references: [id])
+  player Player @relation(fields: [playerId], references: [id])
+  team   Team   @relation(fields: [teamId], references: [id])
+  
+  @@map("goals")
+}
+
+model Card {
+  id       Int    @id @default(autoincrement())
+  matchId  Int    @map("match_id")
+  playerId Int    @map("player_id")
+  teamId   Int    @map("team_id")
+  type     String 
+  minute   Int
+  
+  match  Match  @relation(fields: [matchId], references: [id])
+  player Player @relation(fields: [playerId], references: [id])
+  team   Team   @relation(fields: [teamId], references: [id])
+  
+  @@map("cards")
+}
+
+model Statistic {
+  id       Int    @id @default(autoincrement())
+  type     String // 'goals_scored', 'assists', 'red_cards', etc.
+  teamId   Int?   @map("team_id")
+  playerId Int?   @map("player_id")
+  value    Int
+  
+  team   Team?   @relation(fields: [teamId], references: [id])
+  player Player? @relation(fields: [playerId], references: [id])
+  
+  @@map("statistics")
+}
