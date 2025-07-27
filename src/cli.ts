@@ -3,6 +3,8 @@ import { Command } from 'commander';
 import { GetAllSofascoreMatches } from './entry-points/cli/get-all-sofascore.command';
 import { PopulateRoundsCommand } from './entry-points/cli/populate-rounds.command';
 import { PopulateTeamsCommand } from './entry-points/cli/populate-teams.command';
+import { PostMatchesTweetsCommand } from './entry-points/cli/post-matches-tweets';
+import { PostRoundsCommand } from './entry-points/cli/post-rounds-tweets';
 import { UpdatePostponedMatchesCommand } from './entry-points/cli/update-postponed-matches';
 import { UpdateMatchesByRoundCLI } from './entry-points/cli/update-round-by-number';
 
@@ -120,6 +122,38 @@ program
       console.log(`✅ Rodada ${round} atualizada com sucesso!`);
     } catch (error) {
       console.error('❌ Erro ao atualizar rodada:', error);
+      process.exit(1);
+    }
+  });
+
+program
+  .command('tweet-rounds')
+  .description('Criar tweets para rounds')
+  .action(async () => {
+    try {
+      console.log('🏁 Iniciando criação de tweets para rounds...');
+      const postRoundsCommand = new PostRoundsCommand();
+      await postRoundsCommand.execute();
+    } catch (error) {
+      const errorMessage =
+        error instanceof Error ? error.message : 'Erro desconhecido';
+      console.error('❌ Erro ao criar tweets para rounds:', errorMessage);
+      process.exit(1);
+    }
+  });
+
+program
+  .command('tweet-matches')
+  .description('Criar tweets para matches')
+  .action(async () => {
+    try {
+      console.log('🏁 Iniciando criação de tweets para matches...');
+      const postMatchesCommand = new PostMatchesTweetsCommand();
+      await postMatchesCommand.execute();
+    } catch (error) {
+      const errorMessage =
+        error instanceof Error ? error.message : 'Erro desconhecido';
+      console.error('❌ Erro ao criar tweets para matches:', errorMessage);
       process.exit(1);
     }
   });

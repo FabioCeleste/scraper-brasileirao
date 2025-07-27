@@ -5,4 +5,8 @@ export interface IRoundRepository {
   create(roundData: CreateRoundData): Promise<RoundData>;
   findAll(): Promise<RoundData[]>;
   existsByNumber(value: number): Promise<boolean>;
+  updateRound(
+    id: number,
+    updateData: Partial<CreateRoundData>
+  ): Promise<RoundData | null>;
 }

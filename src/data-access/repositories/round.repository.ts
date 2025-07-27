@@ -18,6 +18,24 @@ export class RoundRepository implements IRoundRepository {
     });
   }
 
+  async updateRound(
+    id: number,
+    updateData: Partial<CreateRoundData>
+  ): Promise<RoundData | null> {
+    const existingRound = await this.prisma.round.findUnique({
+      where: { id },
+    });
+
+    if (!existingRound) {
+      return null;
+    }
+
+    return await this.prisma.round.update({
+      where: { id },
+      data: updateData,
+    });
+  }
+
   async existsByNumber(value: number): Promise<boolean> {
     const round = await this.prisma.round.findFirst({
       where: {

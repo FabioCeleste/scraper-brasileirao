@@ -17,6 +17,17 @@ export class RoundService implements IRoundService {
     return await this.roundRepository.create(roundData);
   }
 
+  async findById(id: number): Promise<RoundData | null> {
+    return await this.roundRepository.findById(id);
+  }
+
+  async updateRound(
+    id: number,
+    updateData: Partial<CreateRoundData>
+  ): Promise<RoundData | null> {
+    return await this.roundRepository.updateRound(id, updateData);
+  }
+
   async bulkCreateRounds(roundsData: CreateRoundData[]): Promise<{
     created: RoundData[];
     skipped: number;
