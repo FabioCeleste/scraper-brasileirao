@@ -71,22 +71,47 @@ export class SofaScoreScraperService implements ISofascoreService {
             return;
           }
 
-          await this.matcheservice.create({
-            round: activeRound.number,
-            roundId: activeRound.id,
-            homeTeamId: homeTeamData.id,
-            homeScore: activeMatch.homeTeamScore
-              ? parseInt(activeMatch.homeTeamScore)
-              : null,
-            awayTeamId: awayTeamData.id,
-            awayScore: activeMatch.awayTeamScore
-              ? parseInt(activeMatch.awayTeamScore)
-              : null,
-            date: activeMatch.date,
-            time: activeMatch.date,
-            status: activeMatch.Matchestatus,
-            tweetId: null,
-          });
+          const activeMatchSave =
+            await this.matcheservice.findMatchByHomeAndAwayTeams(
+              activeMatch.homeTeamName,
+              activeMatch.awayTeamName
+            );
+
+          if (activeMatchSave) {
+            await this.matcheservice.updateMatch(activeMatchSave.id, {
+              round: activeRound.number,
+              roundId: activeRound.id,
+              homeTeamId: homeTeamData.id,
+              homeScore: activeMatch.homeTeamScore
+                ? parseInt(activeMatch.homeTeamScore)
+                : null,
+              awayTeamId: awayTeamData.id,
+              awayScore: activeMatch.awayTeamScore
+                ? parseInt(activeMatch.awayTeamScore)
+                : null,
+              date: activeMatch.date,
+              time: activeMatch.date,
+              status: activeMatch.Matchestatus,
+              tweetId: null,
+            });
+          } else {
+            await this.matcheservice.create({
+              round: activeRound.number,
+              roundId: activeRound.id,
+              homeTeamId: homeTeamData.id,
+              homeScore: activeMatch.homeTeamScore
+                ? parseInt(activeMatch.homeTeamScore)
+                : null,
+              awayTeamId: awayTeamData.id,
+              awayScore: activeMatch.awayTeamScore
+                ? parseInt(activeMatch.awayTeamScore)
+                : null,
+              date: activeMatch.date,
+              time: activeMatch.date,
+              status: activeMatch.Matchestatus,
+              tweetId: null,
+            });
+          }
         });
         console.log('✅ Rodada ' + activeRound.number + ' carregado');
       }
