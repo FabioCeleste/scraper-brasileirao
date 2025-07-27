@@ -19,6 +19,8 @@ export class TwitterTemplatesUtil {
       `${homeTeamName} ${homeScore} x ${awayScore} ${awayTeamName}`,
       '',
       'Resultado final – Brasileirão 2025',
+      '',
+      `#Brasileirão #${homeTeamName.replace(/\s+/g, '')} #${awayTeamName.replace(/\s+/g, '')}`,
     ].join('\n');
   }
 }
